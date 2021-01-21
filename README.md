@@ -1,7 +1,7 @@
 # BigBlueButtonDownloader
 BigBlueButton Presentation Downloader
 
-Install any required dependencies.
+Install required dependencies.
 ```
 pip install tqdm
 python -m pip install tqdm
