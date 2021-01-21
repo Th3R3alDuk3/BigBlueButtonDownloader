@@ -6,8 +6,7 @@ BigBlueButton Presentation Downloader
 pip install -r requirements.txt
 ```
 
-Use following command to download webcams- and deskshare-video. 
-For audio synchronization, use the optional -s argument (sync webcams-audio with deskshare-audio). 
+Use following command to download webcams- and deskshare-video.
 ```
-bbbd.py [-h] [-s] directory url
+download.py [-h] directory url
 ```
