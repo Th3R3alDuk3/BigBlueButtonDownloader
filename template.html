@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <title>{0}</title>
+
+        <style>
+
+            body {{
+                font-family: Arial, Helvetica, sans-serif;
+                text-shadow: 5px 5px #000;
+                padding: 50px;
+                color: #fff;
+                background: #222;
+            }}
+
+            video {{
+                display: block;
+                box-shadow: 15px 15px #000;
+                margin: 50px auto 50px auto;
+                border: 1px solid #fff;
+            }}
+
+        </style>
+
+    </head>
+
+    <body>
+
+    <center><h1>{0}</h1></center>
+
+        <video width="{1}" height="{2}" id="video1">
+            <source src="{3}" type="video/{4}">
+            Your browser does not support the video tag.
+        </video>
+
+        <video width="{5}" height="{6}" id="video2" controls>
+            <source src="{7}" type="video/{8}">
+            Your browser does not support the video tag.
+        </video>
+
+        <script>
+
+            var video1 = document.getElementById("video1");
+            var video2 = document.getElementById("video2");
+
+            video2.onplay = (event) => {{
+                video1.play();
+            }};
+
+            video2.onpause = (event) => {{
+                video1.pause();
+            }};
+
+            video2.onseeking = (event) => {{
+                video1.currentTime = video2.currentTime;
+            }};
+
+            video2.onseeked = (event) => {{
+                video1.currentTime = video2.currentTime;
+            }};
+
+        </script>
+
+    </body>
+
+</html>
