@@ -9,10 +9,17 @@
 
             body {{
                 font-family: Arial, Helvetica, sans-serif;
-                text-shadow: 5px 5px #000;
                 padding: 50px;
-                color: #fff;
                 background: #222;
+            }}
+
+            h1 {{
+                color: #fff;
+                text-shadow: 5px 5px #000;
+            }}
+
+            label {{
+                color: #aaa;
             }}
 
             video {{
@@ -28,15 +35,18 @@
 
     <body>
 
-    <center><h1>{0}</h1></center>
+        <center>
+            <h1>{0}</h1>
+            <label>{1}</label>
+        </center>
 
-        <video width="{1}" height="{2}" id="video1">
-            <source src="{3}" type="video/{4}">
+        <video width="{2}" height="{3}" id="video1">
+            <source src="{4}" type="video/{5}">
             Your browser does not support the video tag.
         </video>
 
-        <video width="{5}" height="{6}" id="video2" controls>
-            <source src="{7}" type="video/{8}">
+        <video width="{6}" height="{7}" id="video2" controls>
+            <source src="{8}" type="video/{9}">
             Your browser does not support the video tag.
         </video>
 

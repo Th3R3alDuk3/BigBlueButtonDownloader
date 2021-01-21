@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 
 from tqdm import tqdm
 from pathlib import Path
+from datetime import datetime
 from argparse import ArgumentParser
 
 
@@ -13,10 +14,10 @@ class WebView:
 
     __TEMPLATE_FILE = Path("template.html")
 
-    def __init__(self, title: str, video_file_webcams: Path, video_file_deskshare: Path):
+    def __init__(self, title: str, time: datetime, video_file_webcams: Path, video_file_deskshare: Path):
 
         self.__html = self.__TEMPLATE_FILE.read_text().format(
-            title,
+            title, time,
             "320", "240",   # 4:3 format
             video_file_webcams.name,
             video_file_webcams.suffix[1:],
@@ -146,9 +147,12 @@ def main():
 
     root = ET.fromstring(metadata)
     name = root.find("meta/meetingName").text
+    time = root.find("start_time").text
+    time = int(time) / 1000
+    time = datetime.fromtimestamp(time)
     # TODO: get more infos from meta
 
-    webview = WebView(name, *video_files)
+    webview = WebView(name, time, *video_files)
     webview.save(output_directory)
 
 
