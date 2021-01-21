@@ -146,6 +146,7 @@ def main():
 
     root = ET.fromstring(metadata)
     name = root.find("meta/meetingName").text
+    # TODO: get more infos from meta
 
     webview = WebView(name, *video_files)
     webview.save(directory)
