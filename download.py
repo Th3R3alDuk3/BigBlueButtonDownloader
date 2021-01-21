@@ -2,6 +2,7 @@
 
 import re
 import requests
+import xml.etree.ElementTree as ET
 
 from tqdm import tqdm
 from pathlib import Path
@@ -130,6 +131,8 @@ def main():
     directory = Path(args.directory)
     directory.mkdir(exist_ok=True)
 
+    # DOWNLOAD FILES
+
     # get presentation metadata
     metadata = bbbd.get_metadata()
     # save presentation metadata
@@ -139,7 +142,12 @@ def main():
     video_files = bbbd.download_videos(directory, ["webm", "mp4"])
     video_files = list(video_files)
 
-    webview = WebView("TEST", *video_files)
+    # CREATE WEBVIEW
+
+    root = ET.fromstring(metadata)
+    name = root.find("meta/meetingName").text
+
+    webview = WebView(name, *video_files)
     webview.save(directory)
 
 
