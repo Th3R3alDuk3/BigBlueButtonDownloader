@@ -121,25 +121,25 @@ def main():
 
     parser = ArgumentParser()
 
-    parser.add_argument("directory")
+    parser.add_argument("output_directory")
     parser.add_argument("url")
 
     args = parser.parse_args()
 
     bbbd = BigBlueButtonDownloader(args.url)
 
-    directory = Path(args.directory)
-    directory.mkdir(exist_ok=True)
+    output_directory = Path(args.output_directory)
+    output_directory.mkdir(exist_ok=True)
 
     # DOWNLOAD FILES
 
     # get presentation metadata
     metadata = bbbd.get_metadata()
     # save presentation metadata
-    directory.joinpath("metadata.xml").write_text(metadata)
+    output_directory.joinpath("metadata.xml").write_text(metadata)
 
     # download webcams- and deskshare-video
-    video_files = bbbd.download_videos(directory, ["webm", "mp4"])
+    video_files = bbbd.download_videos(output_directory, ["webm", "mp4"])
     video_files = list(video_files)
 
     # CREATE WEBVIEW
@@ -149,7 +149,7 @@ def main():
     # TODO: get more infos from meta
 
     webview = WebView(name, *video_files)
-    webview.save(directory)
+    webview.save(output_directory)
 
 
 if __name__ == "__main__":
