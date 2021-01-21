@@ -18,10 +18,10 @@ class WebView:
         self.__html = self.__TEMPLATE_FILE.read_text().format(
             title,
             "320", "240",   # 4:3 format
-            video_file_webcams.absolute(),
+            video_file_webcams.name,
             video_file_webcams.suffix[1:],
             "800", "450",   # 16:9 format
-            video_file_deskshare.absolute(),
+            video_file_deskshare.name,
             video_file_deskshare.suffix[1:]
         )
 
