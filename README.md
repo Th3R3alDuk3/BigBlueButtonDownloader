@@ -1,9 +1,10 @@
 # BigBlueButtonDownloader
 BigBlueButton Presentation Downloader
 
-
+Install any required dependencies.
 ```
-pip install -r requirements.txt
+pip install tqdm
+python -m pip install tqdm
 ```
 
 Use following command to download webcams- and deskshare-video.
