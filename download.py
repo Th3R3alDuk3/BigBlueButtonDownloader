@@ -82,7 +82,7 @@ class BigBlueButtonDownloader:
         if self.__match is None:
             raise Exception("invalid bbb-url")
 
-    def get_metadata(self, timeout: int = 3, verify: bool = True):
+    def download_metadata(self, timeout: int = 3, verify: bool = True):
 
         """
         :param timeout: timeout for request
@@ -90,19 +90,24 @@ class BigBlueButtonDownloader:
         :return: content of metadata (xml format)
         """
 
-        response = requests.get(
-            "{0}/presentation/{1}/metadata.xml".format(
-                self.__match.group("website"),
-                self.__match.group("video_id")
-            ), timeout=timeout, verify=verify
-        )
+        try:
 
-        # raise exception if status_code != 200
-        response.raise_for_status()
+            response = requests.get(
+                "{0}/presentation/{1}/metadata.xml".format(
+                    self.__match.group("website"),
+                    self.__match.group("video_id")
+                ), timeout=timeout, verify=verify
+            )
 
-        return response.text
+            # raise exception if status_code != 200
+            response.raise_for_status()
 
-    def get_video_urls(self, video_file_extension: str = "webm"):
+            return response.text
+
+        except requests.exceptions.RequestException:
+            return
+
+    def _get_video_urls(self, video_file_extension: str = "webm"):
 
         """
         :param video_file_extension: type of video_file
@@ -143,7 +148,7 @@ class BigBlueButtonDownloader:
             try:
 
                 # loop tuples of video_name and video_url
-                for video_name, video_url in self.get_video_urls(video_file_extension):
+                for video_name, video_url in self._get_video_urls(video_file_extension):
 
                     response = requests.get(
                         video_url,
@@ -154,6 +159,9 @@ class BigBlueButtonDownloader:
                     response.raise_for_status()
 
                     video_file = output_directory.joinpath(video_name)
+
+                    if video_file.exists():
+                        yield video_file; continue
 
                     with video_file.open("wb") as fp:
 
@@ -177,7 +185,7 @@ class BigBlueButtonDownloader:
                 break
 
             # try next video_file_extension
-            except requests.RequestException:
+            except requests.exceptions.HTTPError:
                 continue
 
 
@@ -206,16 +214,23 @@ def main():
     output_directory.mkdir(exist_ok=True)
 
     ###
-    # DOWNLOAD FILES
+    # DOWNLOAD NECESSARY FILES
 
     # get presentation metadata
-    metadata = bbbd.get_metadata()
+    metadata = bbbd.download_metadata()
+
+    if not metadata:
+        exit("!!! unable to download metadata")
+
     # save presentation metadata
     output_directory.joinpath("metadata.xml").write_text(metadata)
 
     # download webcams- and deskshare-video
     video_files = bbbd.download_videos(output_directory, ["webm", "mp4"])
     video_files = list(video_files)
+
+    if len(video_files) != 2:
+        exit("!!! unable to download videos")
 
     ###
     # EXTRACT META_INFOS
@@ -234,7 +249,7 @@ def main():
         timestamp = int(timestamp) / 1000
         timestamp = datetime.fromtimestamp(timestamp)
 
-    # TODO: get more infos from meta
+    # TODO: get more infos from metadata
 
     ###
     # CREATE WEBVIEW
