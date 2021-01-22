@@ -1,7 +1,9 @@
-![BigBlueButtonDownloader](https://repository-images.githubusercontent.com/331634964/0abaea80-5c90-11eb-80e0-4413ca30e08a)
-
 # BigBlueButtonDownloader
 ##### BigBlueButton Presentation Downloader
+
+<div style="text-align:center">
+  <img src="https://repository-images.githubusercontent.com/331634964/0abaea80-5c90-11eb-80e0-4413ca30e08a" />
+</div>
 
 Install required dependencies.
 ```
