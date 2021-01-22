@@ -14,7 +14,9 @@ python -m pip install -r requirements.txt
 Use following command to download webcams- and deskshare-video.
 
 ```
-usage: download.py [-h] [--webview_title STRING] [--webview_timestamp STRING]
+usage: download.py [-h] 
+                   [--webview_title STRING] 
+                   [--webview_timestamp STRING]
                    [--webview_video1_height INTEGER]
                    [--webview_video2_height INTEGER]
                    output_directory url
