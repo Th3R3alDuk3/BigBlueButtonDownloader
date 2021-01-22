@@ -1,56 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
     <head>
 
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title>{0}</title>
 
-        <style>
+        <style type="text/css">
 
             body {{
                 font-family: Arial, Helvetica, sans-serif;
-                padding: 50px;
                 background: #222;
-            }}
-
-            h1 {{
                 color: #fff;
-                text-shadow: 5px 5px #000;
-            }}
-
-            label {{
-                color: #aaa;
             }}
 
             video {{
                 display: block;
-                box-shadow: 15px 15px #000;
-                margin: 50px auto 50px auto;
+                box-shadow: 8px 8px #333;
                 border: 1px solid #fff;
+                margin-top: 50px;
             }}
 
         </style>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     </head>
 
     <body>
 
         <center>
+
             <h1>{0}</h1>
-            <label>{1}</label>
+            <code>{1}</code>
+
+            <video width="{2}" height="{3}" id="video1">
+                <source src="{4}" type="video/{5}">
+                Your browser does not support the video tag.
+            </video>
+
+            <video width="{6}" height="{7}" id="video2" controls>
+                <source src="{8}" type="video/{9}">
+                Your browser does not support the video tag.
+            </video>
+
         </center>
 
-        <video width="{2}" height="{3}" id="video1">
-            <source src="{4}" type="video/{5}">
-            Your browser does not support the video tag.
-        </video>
-
-        <video width="{6}" height="{7}" id="video2" controls>
-            <source src="{8}" type="video/{9}">
-            Your browser does not support the video tag.
-        </video>
-
-        <script>
+        <script type="text/javascript">
 
             var video1 = document.getElementById("video1");
             var video2 = document.getElementById("video2");
@@ -70,6 +69,20 @@
             video2.onseeked = (event) => {{
                 video1.currentTime = video2.currentTime;
             }};
+
+            if (window.jQuery) {{
+
+                $("video").draggable();
+
+                $("video").mousedown((event) => {{
+                    $("video").each((index, target) => {{
+                        target.style.zIndex = 1;
+                        if (target == event.target)
+                            target.style.zIndex = 9999;
+                    }});
+                }});
+
+            }}
 
         </script>
 
