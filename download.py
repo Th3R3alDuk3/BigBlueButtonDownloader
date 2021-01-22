@@ -248,6 +248,7 @@ def main():
         timestamp = etree_root.find("start_time").text
         timestamp = int(timestamp) / 1000
         timestamp = datetime.fromtimestamp(timestamp)
+        timestamp = timestamp.strftime("Date: %d.%m.%Y Time: %H:%M")
 
     # TODO: get more infos from metadata
 

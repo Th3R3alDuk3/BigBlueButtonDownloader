@@ -14,13 +14,22 @@
                 font-family: Arial, Helvetica, sans-serif;
                 background: #222;
                 color: #fff;
+                padding: 50px;
             }}
 
             video {{
                 display: block;
-                box-shadow: 8px 8px #333;
                 border: 1px solid #fff;
                 margin-top: 50px;
+            }}
+
+            #vanta {{
+                position: fixed;
+                z-index: -1;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
             }}
 
         </style>
@@ -28,9 +37,14 @@
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.21/vanta.waves.min.js"></script>
+
     </head>
 
     <body>
+
+        <div id="vanta"></div>
 
         <center>
 
@@ -82,6 +96,22 @@
                     }});
                 }});
 
+            }}
+
+            if (window.VANTA) {{
+                VANTA.WAVES({{
+                    el: "#vanta",
+                    mouseControls: false,
+                    touchControls: false,
+                    gyroControls: false,
+                    scale: 1.00,
+                    scaleMobile: 1.00,
+                    color: 0x0,
+                    shininess: 20.00,
+                    waveHeight: 5.00,
+                    waveSpeed: 0.50,
+                    zoom: 1.23
+                }})
             }}
 
         </script>
