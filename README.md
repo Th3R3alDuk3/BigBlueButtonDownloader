@@ -7,13 +7,31 @@
 
 Install required dependencies.
 ```
-pip install tqdm
-python -m pip install tqdm
+pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 Use following command to download webcams- and deskshare-video.
+
 ```
-python download.py [-h] output_directory url
+usage: download.py [-h] [--webview_title STRING] [--webview_timestamp STRING]
+                   [--webview_video1_height INTEGER]
+                   [--webview_video2_height INTEGER]
+                   output_directory url
+
+positional arguments:
+  output_directory
+  url
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --webview_title STRING
+  --webview_timestamp STRING
+  --webview_video1_height INTEGER
+  --webview_video2_height INTEGER
+```
+
+```
 python download.py meeting https://website.org/playback/presentation/2.0/playback.html?meetingId=123...
 ```
 

@@ -2,12 +2,13 @@
 
 import re
 import requests
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ElementTree
 
 from tqdm import tqdm
 from pathlib import Path
 from datetime import datetime
 from argparse import ArgumentParser
+from moviepy.editor import VideoFileClip
 
 
 class WebView:
@@ -15,23 +16,39 @@ class WebView:
     # webview template
     __TEMPLATE_FILE = Path("template.html")
 
-    def __init__(self, title: str, timestamp: datetime, video_file_webcams: Path, video_file_deskshare: Path):
+    def __init__(self, title: str, timestamp: datetime,
+                 video1_file: Path, video2_file: Path,
+                 video1_height: int = 250, video2_height: int = 450):
 
         """
         :param title: title of bigbluebutton presentation (meetingName)
         :param timestamp: timestamp of bigbluebutton presentation
-        :param video_file_webcams: path of webcams_video
-        :param video_file_deskshare: path of deskshare_video
+        :param video1_file: path of first video
+        :param video2_file: path of second video
+        :param video1_height: height of first video
+        :param video2_height: height of second video
         """
+
+        # SCALE VIDEO_RESOLUTION WITH VIDEO_ASPECT_RATIO
+
+        video1_resolution = video1_height * VideoFileClip(
+            str(video1_file)
+        ).aspect_ratio, video1_height
+
+        video2_resolution = video2_height * VideoFileClip(
+            str(video2_file)
+        ).aspect_ratio, video2_height
+
+        # CEATE HTML CONTENT
 
         self.__html = self.__TEMPLATE_FILE.read_text().format(
             title, timestamp,
-            "320", "240",   # 4:3 format
-            video_file_webcams.name,
-            video_file_webcams.suffix[1:],
-            "800", "450",   # 16:9 format
-            video_file_deskshare.name,
-            video_file_deskshare.suffix[1:]
+            *video1_resolution,
+            video1_file.name,
+            video1_file.suffix[1:],
+            *video2_resolution,
+            video2_file.name,
+            video2_file.suffix[1:]
         )
 
     def save(self, output_directory: Path):
@@ -107,7 +124,8 @@ class BigBlueButtonDownloader:
                 video_file_extension
             )
 
-    def download_videos(self, output_directory: Path, video_file_extensions: list, chunk_size: int = 1024, verify: bool = True):
+    def download_videos(self, output_directory: Path, video_file_extensions: list,
+                        chunk_size: int = 1024, verify: bool = True):
 
         """
         :param output_directory: directory for saveing video_files
@@ -127,7 +145,7 @@ class BigBlueButtonDownloader:
 
                     response = requests.get(
                         video_url,
-                        stream=True, verify=True
+                        stream=True, verify=verify
                     )
 
                     # raise exception if status_code != 200
@@ -165,8 +183,14 @@ def main():
 
     parser = ArgumentParser()
 
+    # positional arguments
     parser.add_argument("output_directory")
     parser.add_argument("url")
+    # optional arguments
+    parser.add_argument("--webview_title")
+    parser.add_argument("--webview_timestamp")
+    parser.add_argument("--webview_video1_height", type=int, default=250)
+    parser.add_argument("--webview_video2_height", type=int, default=450)
 
     args = parser.parse_args()
 
@@ -179,6 +203,7 @@ def main():
     output_directory = Path(args.output_directory)
     output_directory.mkdir(exist_ok=True)
 
+    ###
     # DOWNLOAD FILES
 
     # get presentation metadata
@@ -190,19 +215,33 @@ def main():
     video_files = bbbd.download_videos(output_directory, ["webm", "mp4"])
     video_files = list(video_files)
 
-    # CREATE WEBVIEW
+    ###
+    # EXTRACT META_INFOS
 
-    # xml parser
-    root = ET.fromstring(metadata)
+    # xml element_tree
+    etree_root = ElementTree.fromstring(metadata)
 
-    title = root.find("meta/meetingName").text
-    stamp = root.find("start_time").text
-    stamp = int(stamp) / 1000
-    stamp = datetime.fromtimestamp(stamp)
+    title = args.webview_title
+    if not title:
+        title = etree_root.find("meta/meetingName").text
+
+    timestamp = args.webview_timestamp
+    if not timestamp:
+
+        timestamp = etree_root.find("start_time").text
+        timestamp = int(timestamp) / 1000
+        timestamp = datetime.fromtimestamp(timestamp)
+
     # TODO: get more infos from meta
 
-    webview = WebView(title, stamp, *video_files)
-    webview.save(output_directory)
+    ###
+    # CREATE WEBVIEW
+
+    WebView(
+        title, timestamp,
+        *video_files,
+        args.webview_video1_height, args.webview_video2_height
+    ).save(output_directory)
 
 
 if __name__ == "__main__":
