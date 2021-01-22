@@ -192,14 +192,16 @@ def main():
 
     # CREATE WEBVIEW
 
+    # xml parser
     root = ET.fromstring(metadata)
-    name = root.find("meta/meetingName").text
-    time = root.find("start_time").text
-    time = int(time) / 1000
-    time = datetime.fromtimestamp(time)
+
+    title = root.find("meta/meetingName").text
+    stamp = root.find("start_time").text
+    stamp = int(stamp) / 1000
+    stamp = datetime.fromtimestamp(stamp)
     # TODO: get more infos from meta
 
-    webview = WebView(name, time, *video_files)
+    webview = WebView(title, stamp, *video_files)
     webview.save(output_directory)
 
 
