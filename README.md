@@ -14,7 +14,7 @@ python -m pip install tqdm
 Use following command to download webcams- and deskshare-video.
 ```
 python download.py [-h] output_directory url
-python download.py meeting https://mywebsite.org/playback/presentation/2.0/playback.html?meetingId=3a309914f0...
+python download.py meeting https://website.org/playback/presentation/2.0/playback.html?meetingId=123...
 ```
 
 Open the **output_directory/webview.html** file in your Browser and enjoy!
