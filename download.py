@@ -239,6 +239,8 @@ def main():
     ###
     # CREATE WEBVIEW
 
+    print("create webview.html")
+
     WebView(
         title, timestamp,
         *video_files,
