@@ -45,7 +45,7 @@ python downloader.pyz meeting https://website.org/playback/presentation/2.0/play
 
 ### RUN NORMAL PYTHON APPLICATION
 
-Install required dependencies.
+Install requirements.
 
 ```
 python3 -m pip install -r requirements.txt
