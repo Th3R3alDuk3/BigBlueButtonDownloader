@@ -31,8 +31,6 @@ class WebView:
         :param video2_height: height of second video
         """
 
-        print()
-
         # CEATE HTML CONTENT
 
         self.__html = self.__TEMPLATE.format(
