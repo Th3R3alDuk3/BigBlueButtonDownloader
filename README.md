@@ -43,23 +43,6 @@ Use following command to download webcams- and deskshare-video.
 python downloader.pyz meeting https://website.org/playback/presentation/2.0/playback.html?meetingId=123...
 ```
 
-### RUN NORMAL PYTHON APPLICATION
-
-Install requirements.
-
-```
-python3 -m pip install -r requirements.txt
-cd ./src
-```
-
-```
-usage: python downloader.py [-h] ...
-```
-Use following command to download webcams- and deskshare-video.
-```
-python downloader.py meeting https://website.org/playback/presentation/2.0/playback.html?meetingId=123...
-```
-
-### WebView
+##### USE WEBVIEW
 
 Open the **output_directory/webview.html** file in your Browser and enjoy!
