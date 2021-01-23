@@ -2,6 +2,7 @@
 
 import re
 import requests
+import pkg_resources
 import xml.etree.ElementTree as ElementTree
 
 from tqdm import tqdm
@@ -13,7 +14,9 @@ from argparse import ArgumentParser
 class WebView:
 
     # webview template
-    __TEMPLATE_FILE = Path("template.html")
+    __TEMPLATE = pkg_resources.resource_string(
+        __name__, "template.html"
+    ).decode()
 
     def __init__(self, title: str, timestamp: datetime,
                  video1_file: Path, video2_file: Path,
@@ -28,9 +31,11 @@ class WebView:
         :param video2_height: height of second video
         """
 
+        print()
+
         # CEATE HTML CONTENT
 
-        self.__html = self.__TEMPLATE_FILE.read_text().format(
+        self.__html = self.__TEMPLATE.format(
             title, timestamp,
             video1_height,
             video1_file.name,
