@@ -1,7 +1,6 @@
-#!python3
+#!/usr/bin/env python3
 
 import re
-import cv2
 import requests
 import xml.etree.ElementTree as ElementTree
 
@@ -29,26 +28,14 @@ class WebView:
         :param video2_height: height of second video
         """
 
-        # SCALE VIDEO_RESOLUTION WITH VIDEO_ASPECT_RATIO
-
-        video1 = cv2.VideoCapture(str(video1_file))
-
-        video1_aspect_ratio = video1.get(3) / video1.get(4)
-        video1_resolution = video1_height * video1_aspect_ratio, video1_height
-
-        video2 = cv2.VideoCapture(str(video2_file))
-
-        video2_aspect_ratio = video2.get(3) / video2.get(4)
-        video2_resolution = video2_height * video2_aspect_ratio, video2_height
-
         # CEATE HTML CONTENT
 
         self.__html = self.__TEMPLATE_FILE.read_text().format(
             title, timestamp,
-            *video1_resolution,
+            video1_height,
             video1_file.name,
             video1_file.suffix[1:],
-            *video2_resolution,
+            video2_height,
             video2_file.name,
             video2_file.suffix[1:]
         )
