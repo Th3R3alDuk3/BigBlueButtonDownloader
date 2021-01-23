@@ -2,6 +2,7 @@
 
 import re
 import requests
+import webbrowser
 import pkg_resources
 import xml.etree.ElementTree as ElementTree
 
@@ -47,9 +48,13 @@ class WebView:
 
         """
         :param output_directory: directory for saveing webview_file
+        :return: webview_file
         """
 
-        output_directory.joinpath("webview.html").write_text(self.__html)
+        webview_file = output_directory.joinpath("webview.html")
+        webview_file.write_text(self.__html)
+
+        return webview_file
 
 
 class BigBlueButtonDownloader:
@@ -247,11 +252,14 @@ def main():
 
     print("create webview.html")
 
-    WebView(
+    webview_file = WebView(
         title, timestamp,
         *video_files,
         args.webview_video1_height, args.webview_video2_height
     ).save(output_directory)
+
+    # open webview
+    webbrowser.open(str(webview_file), 2)
 
 
 if __name__ == "__main__":
