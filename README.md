@@ -23,8 +23,6 @@ Otherwise, you can download and run the [latest release](https://github.com/Th3R
 usage: python downloader.pyz [-h] 
                    [--webview_title STRING] 
                    [--webview_timestamp STRING]
-                   [--webview_video1_height INTEGER]
-                   [--webview_video2_height INTEGER]
                    output_directory url
 
 positional arguments:
@@ -34,9 +32,7 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   --webview_title STRING
-  --webview_timestamp STRING
-  --webview_video1_height INTEGER
-  --webview_video2_height INTEGER    
+  --webview_timestamp STRING   
 ```
 Use following command to download webcams- and deskshare-video.
 ```

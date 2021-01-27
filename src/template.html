@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
 
         <meta charset="utf-8">
@@ -14,25 +13,61 @@
                 font-family: Arial, Helvetica, sans-serif;
                 background: #222;
                 color: #fff;
-                padding: 50px;
+            }}
+
+            .wrapper1,
+            .wrapper2 {{
+                position: absolute;
+                display: table;
+            }}
+
+            .wrapper1 {{
+                top: 30px; left: 30px;
+                width: calc(100% - 60px);
+                height: 140px;
+            }}
+
+            .wrapper2 {{
+                top: 200px; left: 30px;
+                width: calc(100% - 60px);
+                height: calc(100% - 230px);
+            }}
+
+            .wrapper1 *,
+            .wrapper2 > div {{
+                position: relative;
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+            }}
+
+            .resizable {{
+                border-right: 7px solid rgba(200, 200, 200, 0.5);
             }}
 
             video {{
-                display: block;
-                border: 10px solid rgba(150, 150, 150, .2);
-                margin-top: 50px;
+                position: relative;
+                width: calc(90% - 100px);
+                min-width: 250px;
+                max-height: calc(100% - 100px);
+                background: rgba(0, 0, 0, 0.6);
+                border: 10px solid rgba(100, 100, 100, 0.2);
             }}
+
+            /* VANTA.JS */
 
             #vanta {{
                 position: fixed;
-                z-index: -1;
+                top: 0; left: 0;
                 width: 100%;
                 height: 100%;
-                top: 0;
-                left: 0;
+                z-index: -1;
             }}
 
+
         </style>
+
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -41,81 +76,105 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.21/vanta.waves.min.js"></script>
 
     </head>
-
     <body>
 
         <div id="vanta"></div>
 
-        <center>
-
+        <div class="wrapper1">
             <h1>{0}</h1>
             <code>{1}</code>
+        </div>
 
-            <video height="{2}" id="video1">
-                <source src="{3}" type="video/{4}">
-                Your browser does not support the video tag.
-            </video>
-
-            <video height="{5}" id="video2" controls>
-                <source src="{6}" type="video/{7}">
-                Your browser does not support the video tag.
-            </video>
-
-        </center>
+        <div class="wrapper2">
+            <div class="resizable">
+                <video id="video1" controls>
+                    <source src="{2}" type="video/{3}">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div>
+                <video id="video2">
+                    <source src="{4}" type="video/{5}">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
 
         <script type="text/javascript">
 
-            var video1 = document.getElementById("video1");
-            var video2 = document.getElementById("video2");
+            window.onload = () => {{
 
-            video2.onplay = (event) => {{
-                video1.play();
-            }};
+                var video1 = document.getElementById("video1");
+                var video2 = document.getElementById("video2");
 
-            video2.onpause = (event) => {{
-                video1.pause();
-            }};
+                /* SYNCHRONIZE VIDEO1 CONTROL WITH VIDEO2 */
 
-            video2.onseeking = (event) => {{
-                video1.currentTime = video2.currentTime;
-            }};
+                video1.onplay = (event) => {{
+                    video2.play();
+                }};
 
-            video2.onseeked = (event) => {{
-                video1.currentTime = video2.currentTime;
-            }};
+                video1.onpause = (event) => {{
+                    video2.pause();
+                }};
 
-            if (window.jQuery) {{
+                video1.onseeking = (event) => {{
+                    video2.currentTime = video1.currentTime;
+                }};
 
-                $("video").draggable();
+                video1.onseeked = (event) => {{
+                    video2.currentTime = video1.currentTime;
+                }};
 
-                $("video").mousedown((event) => {{
-                    $("video").each((index, target) => {{
-                        target.style.zIndex = 1;
-                        if (target == event.target)
-                            target.style.zIndex = 9999;
-                    }});
-                }});
+                // TODO: audio
 
-            }}
+                /* JQUERY AND JQUERY.UI */
 
-            if (window.VANTA) {{
-                VANTA.WAVES({{
-                    el: "#vanta",
-                    mouseControls: false,
-                    touchControls: false,
-                    gyroControls: false,
-                    scale: 1.00,
-                    scaleMobile: 1.00,
-                    color: 0x0,
-                    shininess: 20.00,
-                    waveHeight: 5.00,
-                    waveSpeed: 0.80,
-                    zoom: 1.23
-                }})
+                if (window.jQuery) {{
+                    if (window.jQuery.ui) {{
+
+                        $(".resizable").resizable({{
+                            handles: "e",
+                            start: (event, ui) => {{
+                                $("video").css({{
+                                    "maxHeight": ui.size.height - 100
+                                }});
+                            }}
+                        }});
+
+                        $("video").draggable();
+
+                        // set foreground of focused video
+                        $("video").mousedown((event) => {{
+                            $("video").each((index, target) => {{
+                                target.style.zIndex = 1;
+                                if (target == event.target)
+                                    target.style.zIndex = 9999;
+                            }});
+                        }});
+
+                    }} else {{
+                        alert("Not possible to load 'jQuery.ui' which was used for certain element effect!");
+                    }}
+                }} else {{
+                    alert("Not possible to load 'jQuery', which is required for 'jQuery.ui'!");
+                }}
+
+                if (window.VANTA) {{
+                    VANTA.WAVES({{
+                        el: "#vanta",
+                        mouseControls: false,
+                        touchControls: false,
+                        gyroControls: false,
+                        scale: 1.0,
+                        scaleMobile: 1.0,
+                        color: 0x111111,
+                        waveSpeed: 0.5
+                    }})
+                }}
+
             }}
 
         </script>
 
     </body>
-
 </html>

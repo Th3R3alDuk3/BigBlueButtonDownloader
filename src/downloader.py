@@ -20,26 +20,21 @@ class WebView:
     ).decode()
 
     def __init__(self, title: str, timestamp: datetime,
-                 video1_file: Path, video2_file: Path,
-                 video1_height: int = 250, video2_height: int = 450):
+                 video1_file: Path, video2_file: Path):
 
         """
         :param title: title of bigbluebutton presentation (meetingName)
         :param timestamp: timestamp of bigbluebutton presentation
         :param video1_file: path of first video
         :param video2_file: path of second video
-        :param video1_height: height of first video
-        :param video2_height: height of second video
         """
 
         # CEATE HTML CONTENT
 
         self.__html = self.__TEMPLATE.format(
             title, timestamp,
-            video1_height,
             video1_file.name,
             video1_file.suffix[1:],
-            video2_height,
             video2_file.name,
             video2_file.suffix[1:]
         )
@@ -194,8 +189,6 @@ def main():
     # optional arguments
     parser.add_argument("--webview_title")
     parser.add_argument("--webview_timestamp")
-    parser.add_argument("--webview_video1_height", type=int, default=250)
-    parser.add_argument("--webview_video2_height", type=int, default=450)
 
     args = parser.parse_args()
 
@@ -223,6 +216,7 @@ def main():
     # download webcams- and deskshare-video
     video_files = bbbd.download_videos(output_directory, ["webm", "mp4"])
     video_files = list(video_files)
+    video_files.reverse()
 
     if len(video_files) != 2:
         exit("!!! unable to download videos")
@@ -254,8 +248,7 @@ def main():
 
     webview_file = WebView(
         title, timestamp,
-        *video_files,
-        args.webview_video1_height, args.webview_video2_height
+        *video_files
     ).save(output_directory)
 
     # open webview
