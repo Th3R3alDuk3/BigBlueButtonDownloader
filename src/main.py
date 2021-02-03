@@ -6,8 +6,7 @@ import datetime
 import argparse
 import xml.etree.ElementTree
 # own packages
-from webview import WebView
-from bigbluebutton import BigBlueButton
+from bigbluebutton import WebView, Downloader
 
 
 def main():
@@ -27,7 +26,7 @@ def main():
     print("| BigBlueButton Downloader |")
     print("+--------------------------+")
 
-    bbb = BigBlueButton(args.url)
+    downloader = Downloader(args.url)
 
     output_directory = pathlib.Path(args.output_directory)
     output_directory.mkdir(exist_ok=True)
@@ -36,15 +35,15 @@ def main():
     # DOWNLOAD NECESSARY FILES
 
     # download presentation meta
-    meta_file = bbb.download_meta(output_directory)
+    meta_file = downloader.download_meta(output_directory)
     # TODO: catch requests.exceptions
 
     # download presentation chat
-    chat_file = bbb.download_chat(output_directory)
+    chat_file = downloader.download_chat(output_directory)
     # TODO: catch requests.exceptions
 
     # download webcams- and deskshare-video
-    video_files = bbb.download_videos(output_directory, ["webm", "mp4"])
+    video_files = downloader.download_videos(output_directory, ["webm", "mp4"])
     video_files = list(video_files)
     video_files.reverse()
 

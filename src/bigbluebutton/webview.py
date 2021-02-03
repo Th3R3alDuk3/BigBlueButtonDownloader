@@ -5,7 +5,7 @@ import importlib.resources
 class WebView:
 
     # webview template
-    __TEMPLATE = importlib.resources.read_text("webview", "template.html")
+    __TEMPLATE = importlib.resources.read_text("bigbluebutton", "template.html")
 
     def __init__(self, video1_file: pathlib.Path, video2_file: pathlib.Path, *args):
 
