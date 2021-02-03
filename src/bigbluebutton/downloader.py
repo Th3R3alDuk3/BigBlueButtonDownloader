@@ -39,8 +39,9 @@ class Downloader:
 
     @staticmethod
     def __download_file(output_directory: pathlib.Path,
-                        file_url: str, file_name: str, chunk_size: int = 1024,
-                        timeout: int = 60, verify: bool = True):
+                        file_url: str, file_name: str,
+                        chunk_size: int = 1024,
+                        verify: bool = True, timeout: int = 60):
 
         """
         :param output_directory: directory for saveing video_files
@@ -53,8 +54,10 @@ class Downloader:
         """
 
         response = requests.get(
-            file_url, stream=True,
-            timeout=timeout, verify=verify
+            file_url,
+            stream=True,
+            verify=verify,
+            timeout=timeout
         )
 
         # raise exception if status_code != 200
@@ -72,7 +75,9 @@ class Downloader:
                 # pipe request_stream through progressbar
                 tqdm_stream = tqdm.tqdm(
                     response.iter_content(chunk_size),
-                    total=tqdm_size, desc=file_name, unit="KB"
+                    total=tqdm_size,
+                    desc=file_name,
+                    unit="KB"
                 )
 
                 # loop request_stream
@@ -127,14 +132,16 @@ class Downloader:
 
         return self.__download_file(
             output_directory,
-            self._get_url_meta(), "meta.xml"
+            self._get_url_meta(),
+            "meta.xml"
         )
 
     def download_chat(self, output_directory: pathlib.Path):
 
         return self.__download_file(
             output_directory,
-            self._get_url_chat(), "chat.xml"
+            self._get_url_chat(),
+            "chat.xml"
         )
 
     def download_videos(self, output_directory: pathlib.Path, video_file_extensions: list):
