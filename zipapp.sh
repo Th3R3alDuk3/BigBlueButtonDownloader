@@ -4,7 +4,7 @@ if command -v "python3" &> /dev/null
 then
 
   python3 -m pip install --requirement requirements.txt --upgrade --target "src"
-  python3 -m zipapp src --main "downloader:main" --python "/usr/bin/env python3" --output "downloader.pyz" --compress
+  python3 -m zipapp src --main "main:main" --python "/usr/bin/env python3" --output "downloader.pyz" --compress
 
 elif command -v "python" &> /dev/null
 then
@@ -15,7 +15,7 @@ then
   then
 
     python -m pip install --requirement requirements.txt --upgrade --target "src"
-    python -m zipapp src --main "downloader:main" --python "/usr/bin/env python" --output "downloader.pyz" --compress
+    python -m zipapp src --main "main:main" --python "/usr/bin/env python" --output "downloader.pyz" --compress
 
   else
 

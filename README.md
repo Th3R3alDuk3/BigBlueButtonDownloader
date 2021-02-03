@@ -22,7 +22,7 @@ Otherwise, you can download and run the [latest release](https://github.com/Th3R
 ```
 usage: python downloader.pyz [-h] 
                    [--webview_title STRING] 
-                   [--webview_timestamp STRING]
+                   [--webview_start STRING]
                    output_directory url
 
 positional arguments:
@@ -32,7 +32,7 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   --webview_title STRING
-  --webview_timestamp STRING   
+  --webview_start STRING   
 ```
 Use following command to download webcams- and deskshare-video.
 ```
