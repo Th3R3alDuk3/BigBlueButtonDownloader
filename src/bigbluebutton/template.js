@@ -1,9 +1,9 @@
 window.onload = () => {
 
+    /* SYNCHRONIZE VIDEO1 CONTROL WITH VIDEO2 */
+
     var video1 = document.getElementById("video1");
     var video2 = document.getElementById("video2");
-
-    /* SYNCHRONIZE VIDEO1 CONTROL WITH VIDEO2 */
 
     video1.onplay = (event) => {
         video2.play();
@@ -23,39 +23,23 @@ window.onload = () => {
 
     // TODO: audio
 
-    /* JQUERY AND JQUERY.UI */
+    /* SPLIT.JS */
 
-    if (window.jQuery) {
-        if (window.jQuery.ui) {
+    if (window.Split) {
 
-            $(".resizable").resizable({
-                handles: "e",
-                start: (event, ui) => {
-                    $("video").css({
-                        "maxHeight": ui.size.height - 100
-                    });
-                }
-            });
+        Split([".split1", ".split2"], {
+            sizes: [75, 25],
+            minSize: [450, 150]
+        });
 
-            $("video").draggable();
-
-            // focused video set foreground
-            $("video").mousedown((event) => {
-                $("video").each((index, target) => {
-                    target.style.zIndex = 1;
-                    if (target == event.target)
-                        target.style.zIndex = 9999;
-                });
-            });
-
-        } else {
-            alert("Not possible to load 'jQuery.ui' which was used for certain element effect!");
-        }
     } else {
-        alert("Not possible to load 'jQuery', which is required for 'jQuery.ui'!");
+        console.log("split.js not found");
     }
 
+    /* VANTA.JS */
+
     if (window.VANTA) {
+
         VANTA.WAVES({
             el: "#vanta",
             mouseControls: false,
@@ -66,6 +50,9 @@ window.onload = () => {
             color: 0x111111,
             waveSpeed: 0.5
         })
+
+    } else {
+        console.log("vanta.js not found");
     }
 
 }
