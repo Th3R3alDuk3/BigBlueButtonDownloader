@@ -13,7 +13,7 @@ class WebView:
     ]
 
     def __init__(self, video1_file: pathlib.Path, video2_file: pathlib.Path,
-                 chat_file: pathlib.Path, meta_file: pathlib.Path):
+                 chat_file: pathlib.Path, meta_file: pathlib.Path, url: str):
 
         """
         :param video1_file: path of first video file
@@ -31,6 +31,7 @@ class WebView:
             video2_file.name,
             chat_file.name,
             meta_file.name,
+            url,
             *self.__parse_xml_meta(
                 meta_file,
                 "meta/meetingName",

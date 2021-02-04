@@ -47,7 +47,7 @@ window.onload = () => {
             gyroControls: false,
             scale: 1.0,
             scaleMobile: 1.0,
-            color: 0x111111,
+            color: 0x06172a,
             waveSpeed: 0.5
         })
 

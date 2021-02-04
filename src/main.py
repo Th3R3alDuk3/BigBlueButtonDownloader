@@ -50,7 +50,8 @@ def main():
     WebView(
         *video_files,
         chat_file,
-        meta_file
+        meta_file,
+        args.url,
     ).save(output_directory)
 
     print("create webview.html")
