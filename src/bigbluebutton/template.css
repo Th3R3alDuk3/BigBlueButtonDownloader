@@ -4,66 +4,148 @@ body {
     color: #fff;
 }
 
-.content1,
-.content2 {
+/**/
+
+.wrapper {
     position: absolute;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
 }
 
-.content1 {
-    top: 30px; left: 30px;
+.wrapper.top {
+    top: 30px;
+    left: 30px;
     width: calc(100% - 60px);
     height: 100px;
+    /**/
+    display: flex;
+    flex-direction:row;
     align-items: center;
-}
-
-.content1 > * {
-    margin: 0 20px;
-}
-
-.content2 {
-    top: 160px; left: 30px;
-    width: calc(100% - 60px);
-    height: calc(100% - 190px);
-}
-
-video {
-    width: calc(100% - 20px);
-    height: 100%;
-    max-height: calc(100% - 20px);
-    background: rgba(2, 8, 15, 0.5);
-    border: 10px solid rgba(0, 0, 0, 0.1);
-}
-
-.gutter {
-    background: rgba(255, 255, 255, 0.2);
-    cursor: e-resize;
-}
-
-/* HYPERLINKS */
-
-a:link, a:visited {
-    display: inline-block;
-    min-width: 80px;
-    color: #fff;
-    background: rgba(2, 8, 15, 0.5);
-    border: 3px solid rgba(0, 0, 0, 0.1);
     text-align: center;
-    text-decoration: none;
-    padding: 10px 20px;
 }
 
-a:hover, a:active {
+.wrapper.top > * {
+    flex: 1 1 auto;
+}
+
+.wrapper.bottom {
+    top: 160px;
+    left: 30px;
+    width: calc(100% - 80px);
+    height: calc(100% - 210px);
+    /**/
+    border: 10px solid rgba(255, 255, 255, 0.1);
+}
+
+/**/
+
+.splitView {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.splitView.horizontal{
+    flex-direction: row;
+}
+
+.splitView.vertical {
+    flex-direction: column;
+}
+
+.view {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/**/
+
+#view1 {
+    width: calc(100% - 500px);
+}
+
+#splitView2 {
+    width: 500px;
+}
+
+#view2 {
+    height: 300px;
+}
+
+#view3 {
+    height: calc(100% - 300px);
+}
+
+/**/
+
+.view video {
+    width: 100%;
+    height: 100%;
+}
+
+#chat {
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    padding: 20px;
+    overflow: auto;
+    font-size: x-small;
+    word-break: break-all;
+}
+
+#chat .message {
+    padding: 10px;
+}
+
+#chat .message:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* VANTA.JS */
+#chat .name {
+    float: left;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#chat .time {
+    float: right;
+    color: #99ccff;
+    font-family: monospace;
+}
+
+#chat .text {
+    float: none;
+    color: #cce5ff;
+    font-style: italic;
+}
+
+.links a {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.links a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/**/
+
+.gutter {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.gutter.gutter-horizontal {
+    cursor: e-resize;
+}
+
+.gutter.gutter-vertical {
+    cursor: n-resize;
+}
+
+/**/
 
 #vanta {
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     z-index: -1;

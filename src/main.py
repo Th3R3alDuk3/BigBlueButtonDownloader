@@ -39,7 +39,6 @@ def main():
     # download webcams- and deskshare-video
     video_files = downloader.download_videos(output_directory, ["webm", "mp4"])
     video_files = list(video_files)
-    video_files.reverse()
 
     if len(video_files) != 2:
         exit("!!! unable to download videos")
@@ -48,7 +47,6 @@ def main():
     # CREATE WEBVIEW
 
     WebView(
-        *video_files,
         chat_file,
         meta_file,
         args.url,

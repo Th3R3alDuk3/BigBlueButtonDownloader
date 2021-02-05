@@ -12,12 +12,9 @@ class WebView:
         importlib.resources.read_text("bigbluebutton", "template.js")
     ]
 
-    def __init__(self, video1_file: pathlib.Path, video2_file: pathlib.Path,
-                 chat_file: pathlib.Path, meta_file: pathlib.Path, url: str):
+    def __init__(self, chat_file: pathlib.Path, meta_file: pathlib.Path, url: str):
 
         """
-        :param video1_file: path of first video file
-        :param video2_file: path of second video file
         :param chat_file: path of chat file
         :param meta_file: path of meta file
         """
@@ -27,11 +24,10 @@ class WebView:
         self.__html = self.__TEMPLATES[0].format(
             self.__TEMPLATES[1],
             self.__TEMPLATES[2],
-            video1_file.name,
-            video2_file.name,
-            chat_file.name,
-            meta_file.name,
             url,
+            "".join(
+                self.__parse_xml_chat(chat_file)
+            ),
             *self.__parse_xml_meta(
                 meta_file,
                 "meta/meetingName",
@@ -44,15 +40,24 @@ class WebView:
 
         """
         :param chat_file: path of chat file
-        :return: yield formatted chat history
+        :return: yield formatted chat messages
         """
 
         etree_root = xml.etree.ElementTree.parse(chat_file)
 
         for element in etree_root.findall("chattimeline"):
-            yield "<b>[{0}]</b>:<br>{1}<br>".format(
+            yield """
+            <div class="message">
+                <span class="name">{0}</span>
+                <span class="time">{2}</span><br>
+                <span class="text">{1}</span>
+            </div>
+            """.format(
                 element.attrib["name"],
-                element.attrib["message"]
+                element.attrib["message"],
+                datetime.timedelta(
+                    seconds=int(element.attrib["in"])
+                )
             )
 
     @staticmethod

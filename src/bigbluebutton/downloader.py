@@ -152,21 +152,17 @@ class Downloader:
         :return: yield paths of video_files
         """
 
-        # loop video_file_extensions
         for video_file_extension in video_file_extensions:
 
             try:
 
-                # loop tuples of video_name and video_url
                 for video_name, video_url in self._get_url_videos(video_file_extension):
                     yield self.__download_file(
                         output_directory,
                         video_url, video_name
                     )
 
-                # exit loop because of successful video_file_extension download
                 break
 
-            # try next video_file_extension
             except requests.exceptions.HTTPError:
                 continue

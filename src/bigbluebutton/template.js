@@ -1,7 +1,5 @@
 window.onload = () => {
 
-    /* SYNCHRONIZE VIDEO1 CONTROL WITH VIDEO2 */
-
     var video1 = document.getElementById("video1");
     var video2 = document.getElementById("video2");
 
@@ -23,20 +21,29 @@ window.onload = () => {
 
     // TODO: audio
 
-    /* SPLIT.JS */
+    /**/
 
     if (window.Split) {
 
-        Split([".split1", ".split2"], {
+        Split(["#view1", "#splitView2"], {
             sizes: [75, 25],
-            minSize: [450, 150]
+            minSize: [450, 350],
+            direction: "horizontal",
+            gutterSize: 5
+        });
+
+        Split(["#view2", "#view3"], {
+            sizes: [25, 75],
+            minSize: [150, 250],
+            direction: "vertical",
+            gutterSize: 5
         });
 
     } else {
         console.log("split.js not found");
     }
 
-    /* VANTA.JS */
+    /**/
 
     if (window.VANTA) {
 
