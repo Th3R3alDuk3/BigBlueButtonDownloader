@@ -23,6 +23,25 @@ window.onload = () => {
 
     /**/
 
+    var messages = document.getElementsByClassName("message");
+
+    setInterval(() => {
+
+        [...messages].forEach(message => {
+
+            let seconds = message.getAttribute("seconds");
+
+            if (video1.currentTime > Number(seconds))
+                message.classList.add("marked");
+            else
+                message.classList.remove("marked");
+
+        });
+
+    }, 5000);
+
+    /**/
+
     if (window.Split) {
 
         Split(["#view1", "#splitView2"], {
@@ -40,7 +59,7 @@ window.onload = () => {
         });
 
     } else {
-        console.log("split.js not found");
+        console.log("split not found");
     }
 
     /**/
@@ -59,7 +78,7 @@ window.onload = () => {
         })
 
     } else {
-        console.log("vanta.js not found");
+        console.log("vanta not found");
     }
 
 }

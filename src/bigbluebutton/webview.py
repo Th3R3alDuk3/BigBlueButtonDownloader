@@ -24,8 +24,7 @@ class WebView:
         self.__html = self.__TEMPLATES[0].format(
             self.__TEMPLATES[1],
             self.__TEMPLATES[2],
-            url,
-            "".join(
+            url, "".join(
                 self.__parse_xml_chat(chat_file)
             ),
             *self.__parse_xml_meta(
@@ -47,17 +46,18 @@ class WebView:
 
         for element in etree_root.findall("chattimeline"):
             yield """
-            <div class="message">
-                <span class="name">{0}</span>
-                <span class="time">{2}</span><br>
-                <span class="text">{1}</span>
+            <div class="message" seconds="{0}">
+                <span class="time">{3}</span>&ensp;
+                <span class="name">{1}</span>
+                <p class="text">{2}</p>
             </div>
             """.format(
+                element.attrib["in"],
                 element.attrib["name"],
                 element.attrib["message"],
                 datetime.timedelta(
                     seconds=int(element.attrib["in"])
-                )
+                ),
             )
 
     @staticmethod
@@ -93,6 +93,6 @@ class WebView:
         """
 
         webview_file = output_directory.joinpath("webview.html")
-        webview_file.write_text(self.__html)
+        webview_file.write_text(self.__html, encoding="utf-8")
 
         return webview_file

@@ -93,24 +93,26 @@ body {
     padding: 10px;
 }
 
+#chat .message.marked {
+    border-left: 3px solid #00ff80;
+}
+
 #chat .message:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
 #chat .name {
-    float: left;
     color: #ffffff;
     font-weight: bold;
 }
 
 #chat .time {
-    float: right;
     color: #99ccff;
+    font-size: x-small;
     font-family: monospace;
 }
 
 #chat .text {
-    float: none;
     color: #cce5ff;
     font-style: italic;
 }
