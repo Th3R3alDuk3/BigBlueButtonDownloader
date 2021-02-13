@@ -81,40 +81,45 @@ body {
 }
 
 #chat {
-    width: calc(100% - 40px);
-    height: calc(100% - 40px);
-    padding: 20px;
+    width: 100%;
+    height: 100%;
     overflow: auto;
     font-size: x-small;
     word-break: break-all;
 }
 
 #chat .message {
-    padding: 10px;
+    padding: 15px;
 }
 
 #chat .message.marked {
-    border-left: 3px solid #00ff80;
+    background-image: linear-gradient(90deg, rgba(100, 200, 255, 0.2), rgba(0, 0, 0 ,0));
 }
 
 #chat .message:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
+#chat span {
+    display: inline-block;
+}
+
 #chat .name {
+    min-width: 100px;
     color: #ffffff;
     font-weight: bold;
 }
 
 #chat .time {
     color: #99ccff;
-    font-size: x-small;
+    font-size: xx-small;
     font-family: monospace;
 }
 
 #chat .text {
     color: #cce5ff;
     font-style: italic;
+    margin: 5px 0 0 0;
 }
 
 .links a {
@@ -131,7 +136,7 @@ body {
 /**/
 
 .gutter {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .gutter.gutter-horizontal {

@@ -47,8 +47,8 @@ class WebView:
         for element in etree_root.findall("chattimeline"):
             yield """
             <div class="message" seconds="{0}">
-                <span class="time">{3}</span>&ensp;
-                <span class="name">{1}</span>
+                <span class="name">{1}</span>&ensp;
+                <span class="time">{3}</span>
                 <p class="text">{2}</p>
             </div>
             """.format(
