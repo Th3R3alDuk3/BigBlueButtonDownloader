@@ -105,7 +105,6 @@ body {
 }
 
 #chat .name {
-    min-width: 100px;
     color: #ffffff;
     font-weight: bold;
 }
