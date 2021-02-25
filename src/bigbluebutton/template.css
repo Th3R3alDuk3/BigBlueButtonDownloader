@@ -148,6 +148,12 @@ body {
 
 /**/
 
+.simplebar-scrollbar::before {
+  background-color: #fff;
+}
+
+/**/
+
 #vanta {
     position: fixed;
     top: 0;
