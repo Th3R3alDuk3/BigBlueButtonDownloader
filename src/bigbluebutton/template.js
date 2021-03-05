@@ -19,6 +19,29 @@ window.onload = () => {
         video2.currentTime = video1.currentTime;
     };
 
+    video1.onkeypress = (event) => {
+        switch(event.keyCode) {
+            case 49: // key 1
+                video1.currentTime -= 10;
+                break;
+            case 50: // key 2
+                video1.currentTime += 10;
+                break;
+            case 51: // key 3
+                video1.currentTime -= 30;
+                break;
+            case 52: // key 4
+                video1.currentTime += 30;
+                break;
+            case 53: // key 5
+                video1.currentTime -= 60;
+                break;
+            case 54: // key 6
+                video1.currentTime += 60;
+                break;
+        }
+    }
+
     // TODO: audio
 
     /**/
