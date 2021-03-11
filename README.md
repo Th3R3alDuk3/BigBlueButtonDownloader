@@ -17,7 +17,7 @@ Or use the [Microsoft Store](https://go.microsoft.com/fwlink?linkID=2082640) to 
 
 Run the following **zipapp.sh** file to create a standalone Python 3 application.  
 Otherwise, you can download and run the [latest release](https://github.com/Th3R3alDuk3/BigBlueButtonDownloader/releases) - 
-[bbbdownloader_v1.1.zip](https://github.com/Th3R3alDuk3/BigBlueButtonDownloader/files/5970364/bbbdownloader_v1.2.zip). 
+[bbbdownloader_v1.2.zip](https://github.com/Th3R3alDuk3/BigBlueButtonDownloader/files/5970364/bbbdownloader_v1.2.zip). 
 
 ```
 usage: python downloader.pyz [-h] 
