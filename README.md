@@ -32,7 +32,7 @@ optional arguments:
 ```
 Use following command to download webcams- and deskshare-video.
 ```
-python downloader.pyz meeting https://website.org/playback/presentation/2.0/playback.html?meetingId=123...
+python downloader.pyz meeting_2021-03-11 https://website.org/playback/presentation/2.0/playback.html?meetingId=123...
 ```
 
 ##### USE WEBVIEW
