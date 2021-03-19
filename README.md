@@ -35,6 +35,17 @@ Use following command to download webcams- and deskshare-video.
 python downloader.pyz meeting_2021-03-11 https://website.org/playback/presentation/2.0/playback.html?meetingId=123...
 ```
 
+### Shortcut Keys
+
+| Key | Key Code | Impact  |
+|:---:|:---:|:---:|
+| `1` | #49 | video time -= 10 sec |
+| `2` | #50 | video time -= 30 sec |
+| `3` | #51 | video time -= 60 sec |
+| `4` | #52 | video time += 10 sec |
+| `5` | #53 | video time += 30 sec |
+| `6` | #54 | video time += 60 sec |
+
 ##### USE WEBVIEW
 
 Open the **output_directory/webview.html** file in your Browser and enjoy!
