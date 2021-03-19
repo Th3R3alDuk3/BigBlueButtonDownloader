@@ -45,6 +45,9 @@ python downloader.pyz meeting_2021-03-11 https://website.org/playback/presentati
 | `4` | #52 | video time += 10 sec |
 | `5` | #53 | video time += 30 sec |
 | `6` | #54 | video time += 60 sec |
+| `7` | #55 | video speed = 80%  |
+| `8` | #56 | video speed = 100% |
+| `9` | #57 | video speed = 120% |
 
 ##### USE WEBVIEW
 

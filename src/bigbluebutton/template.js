@@ -39,6 +39,18 @@ window.onload = () => {
             case 54: // key 6
                 video1.currentTime += 60;
                 break;
+            case 55: // key 7
+                video1.playbackRate = 0.8;
+                video2.playbackRate = 0.8;
+                break;
+            case 56: // key 8
+                video1.playbackRate = 1;
+                video2.playbackRate = 1;
+                break;
+            case 57: // key 9
+                video1.playbackRate = 1.2;
+                video2.playbackRate = 1.2;
+                break;
         }
     }
 
