@@ -40,7 +40,7 @@ def main():
     video_files = downloader.download_videos(output_directory, ["webm", "mp4"])
     video_files = list(video_files)
 
-    if len(video_files) != 2:
+    if len(video_files) == 0:
         exit("!!! unable to download videos")
 
     ###
