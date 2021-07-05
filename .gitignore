@@ -1,0 +1,9 @@
+__pycache__
+.idea
+src/bin
+src/certifi*
+src/chardet*
+src/idna*
+src/requests*
+src/tqdm*
+src/urllib3*
