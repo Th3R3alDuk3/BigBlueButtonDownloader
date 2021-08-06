@@ -2,6 +2,7 @@ import re
 import tqdm
 import pathlib
 import requests
+import xml.etree.ElementTree as ElementTree
 
 
 class Downloader:
@@ -28,7 +29,7 @@ class Downloader:
 
         """
         :param file_name: name of presentation file
-        :return: return presentation file_url
+        :return: presentation file_url
         """
 
         return "{0}/presentation/{1}/{2}".format(
@@ -50,7 +51,7 @@ class Downloader:
         :param chunk_size: size of stream_chunks
         :param timeout: timout for get request
         :param verify: verify cerificate for get request
-        :return: paths of file
+        :return: paths of files
         """
 
         response = requests.get(
@@ -91,7 +92,7 @@ class Downloader:
     def _get_url_meta(self):
 
         """
-        :return: return meta_url
+        :return: meta_url
         """
 
         return self.__get_file_url("metadata.xml")
@@ -99,10 +100,26 @@ class Downloader:
     def _get_url_chat(self):
 
         """
-        :return: return chat_url
+        :return: chat_url
         """
 
         return self.__get_file_url("slides_new.xml")
+
+    def _get_url_shapes(self):
+
+        """
+        :return: shape_urls
+        """
+
+        return self.__get_file_url("shapes.svg")
+
+    def _get_url_cursor(self):
+
+        """
+        :return: cursor_url
+        """
+
+        return self.__get_file_url("cursor.xml")
 
     def _get_url_videos(self, video_file_extension: str = "webm"):
 
@@ -130,6 +147,11 @@ class Downloader:
 
     def download_meta(self, output_directory: pathlib.Path):
 
+        """
+        :param output_directory:
+        :return: path of meta_file
+        """
+
         return self.__download_file(
             output_directory,
             self._get_url_meta(),
@@ -138,10 +160,41 @@ class Downloader:
 
     def download_chat(self, output_directory: pathlib.Path):
 
+        """
+        :param output_directory:
+        :return: path of chat_file
+        """
+
         return self.__download_file(
             output_directory,
             self._get_url_chat(),
             "chat.xml"
+        )
+
+    def download_shapes(self, output_directory: pathlib.Path):
+
+        """
+        :param output_directory:
+        :return: path of shapes_file
+        """
+
+        return self.__download_file(
+            output_directory,
+            self._get_url_shapes(),
+            "shapes.xml"
+        )
+
+    def download_cursor(self, output_directory: pathlib.Path):
+
+        """
+        :param output_directory:
+        :return: path of cursor_file
+        """
+
+        return self.__download_file(
+            output_directory,
+            self._get_url_cursor(),
+            "cursor.xml"
         )
 
     def download_videos(self, output_directory: pathlib.Path, video_file_extensions: list):
@@ -166,3 +219,41 @@ class Downloader:
 
             except requests.exceptions.HTTPError:
                 continue
+
+    def create_shapes(self, shapes_file: pathlib.Path, output_directory: pathlib.Path):
+
+        """
+        :param shapes_file:
+        :param output_directory:
+        :return: yield paths of image_files
+        """
+
+        # parse infos
+
+        infos = list()
+
+        tree = ElementTree.parse(shapes_file)
+
+        for child in tree.getroot():
+            infos.append(child.attrib)
+
+        # download images and text
+
+        output_directory = output_directory.joinpath("tmp")
+        output_directory.mkdir(exist_ok=True)
+
+        for info in infos:
+
+            self.__download_file(
+                output_directory,
+                self.__get_file_url(info["text"]),
+                info["id"] + ".txt"
+            )
+
+            image = self.__download_file(
+                output_directory,
+                self.__get_file_url(info["{http://www.w3.org/1999/xlink}href"]),
+                info["id"] + ".png"
+            )
+
+            yield image
