@@ -11,8 +11,8 @@
   
 &#x2713; &ensp; webcams video  
 &#x2713; &ensp; deskshare video  
-&#x2713; &ensp; live chat  
 &#x2713; &ensp; change video speed  
+&#x2713; &ensp; live chat  
 &#x2717; &ensp; **shapes/slides not supported!!!**  
   
 use [bbb-dl](https://github.com/C0D3D3V/bbb-dl) or docker image [th3r3alduk3/bbb-dl](https://hub.docker.com/r/th3r3alduk3/bbb-dl)
