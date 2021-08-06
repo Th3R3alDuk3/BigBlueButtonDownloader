@@ -5,6 +5,19 @@
   <img src="https://repository-images.githubusercontent.com/331634964/0abaea80-5c90-11eb-80e0-4413ca30e08a" />
 </p>
 
+---
+
+### Support
+  
+&#x2713; &ensp; webcams video  
+&#x2713; &ensp; deskshare video  
+&#x2713; &ensp; live chat  
+&#x2717; &ensp; **shapes/slides not supported!!!**  
+  
+use [bbb-dl](https://github.com/C0D3D3V/bbb-dl) or docker image [th3r3alduk3/bbb-dl](https://hub.docker.com/r/th3r3alduk3/bbb-dl)
+
+---
+
 Install [Python 3](https://www.python.org/downloads/) on your operating system.  
 
 ```
